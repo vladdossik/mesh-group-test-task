@@ -2,13 +2,7 @@ package mesh_group.test.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mesh_group.test.AbstractInitialization;
-import mesh_group.test.BaseIntegrationTest;
-import mesh_group.test.dto.LoginRequestDto;
 import mesh_group.test.dto.LoginResponseDto;
-import mesh_group.test.model.EmailDataEntity;
-import mesh_group.test.model.PhoneDataEntity;
-import mesh_group.test.model.UserEntity;
-import mesh_group.test.repository.UserRepository;
 import mesh_group.test.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -25,8 +19,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
-import java.util.HashSet;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
