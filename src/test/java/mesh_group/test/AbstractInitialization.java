@@ -55,7 +55,7 @@ public class AbstractInitialization {
 
         loginRequest = new LoginRequestDto();
         loginRequest.setEmailOrPhone("user@example.com");
-        loginRequest.setPassword("\\$2$10$KIXeCmjaH8eRQGVKzOqPzOtP9SWsZT/7n3vAtTP5Vv9WRcTp3Dp2y");
+        loginRequest.setPassword("$2a$10$KIXeCmjaH8eRQGVKzOqPzOtP9SWsZT/7n3vAtTP5Vv9WRcTp3Dp2y");
     }
 
 }
