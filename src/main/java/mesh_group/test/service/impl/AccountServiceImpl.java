@@ -37,8 +37,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     @Caching(evict = {
-            @CacheEvict(value = "accounts", key = "#fromUserId"),
-            @CacheEvict(value = "accounts", key = "#toUserId")
+            @CacheEvict(value = "accounts", key = "#dto.fromId"),
+            @CacheEvict(value = "accounts", key = "#dto.toId")
     })
     public void transferMoney(TransferRequestDto dto) {
 
