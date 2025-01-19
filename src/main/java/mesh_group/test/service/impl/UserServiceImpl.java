@@ -79,18 +79,14 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public Page<UserResponseDto> getUsersFiltered(String name, String email,
-                                                  String phone, String dateOfBirth,
+                                                  String phone, LocalDate dateOfBirth,
                                                   int page, int size) {
 
         Specification<UserEntity> spec = Specification
                 .where(UserSpecifications.hasName(name))
                 .and(UserSpecifications.hasEmail(email))
-                .and(UserSpecifications.hasPhone(phone));
-
-        if (dateOfBirth != null && !dateOfBirth.isEmpty()) {
-            LocalDate dob = LocalDate.parse(dateOfBirth);
-            spec = spec.and(UserSpecifications.hasDateOfBirthAfter(dob));
-        }
+                .and(UserSpecifications.hasPhone(phone))
+                .and(UserSpecifications.hasDateOfBirthAfter(dateOfBirth));
 
         Page<UserEntity> usersPage = userRepository.findAll(spec, PageRequest.of(page, size));
 
@@ -161,7 +157,9 @@ public class UserServiceImpl implements UserService {
         });
 
         Set<EmailDataEntity> newEmails = processEmails(emails);
-        user.addEmails(newEmails);
+        if (!newEmails.isEmpty()) {
+            user.addEmails(newEmails);
+        }
     }
 
     private Set<EmailDataEntity> processEmails(Set<String> emails) {
@@ -181,7 +179,9 @@ public class UserServiceImpl implements UserService {
         });
 
         Set<PhoneDataEntity> newPhones = processPhones(phones);
-        user.addPhones(newPhones);
+        if (!newPhones.isEmpty()) {
+            user.addPhones(newPhones);
+        }
     }
 
     private Set<PhoneDataEntity> processPhones(Set<String> phones) {

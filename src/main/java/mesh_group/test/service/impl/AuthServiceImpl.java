@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
         return userService.findUserByEmailOrPhone(login);
     }
 
-    private Boolean isPasswordValid(String requestPass, String dbPass) {
+    private boolean isPasswordValid(String requestPass, String dbPass) {
         return requestPass.equals(dbPass);
         //идеальная реализация должна использовать шифрование паролей
         //return passwordEncoder.matches(requestPass, dbPass);

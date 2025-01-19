@@ -3,7 +3,8 @@ package mesh_group.test.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @AllArgsConstructor

@@ -6,6 +6,7 @@ import mesh_group.test.dto.UserUpdateDto;
 import mesh_group.test.model.UserEntity;
 import org.springframework.data.domain.Page;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -16,7 +17,7 @@ public interface UserService {
 
     UserResponseDto getUserById(Long userId);
 
-    Page<UserResponseDto> getUsersFiltered(String name, String email, String phone, String dateOfBirth, int page, int size);
+    Page<UserResponseDto> getUsersFiltered(String name, String email, String phone, LocalDate dateOfBirth, int page, int size);
 
     void deleteUser(Long userId);
 

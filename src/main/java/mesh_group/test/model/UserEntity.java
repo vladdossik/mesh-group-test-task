@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -60,11 +61,13 @@ public class UserEntity {
 
     public void addEmails(Set<EmailDataEntity> emails) {
         emails.forEach(email -> email.setUser(this));
-        this.emails = emails;
+        this.emails.clear();
+        this.emails.addAll(emails);
     }
 
     public void addPhones(Set<PhoneDataEntity> phones) {
         phones.forEach(phone -> phone.setUser(this));
-        this.phones = phones;
+        this.phones.clear();
+        this.phones.addAll(phones);
     }
 }
