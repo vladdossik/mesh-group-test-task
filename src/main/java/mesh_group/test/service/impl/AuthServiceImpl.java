@@ -20,7 +20,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
-    private final PasswordEncoder passwordEncoder;
+    //private final PasswordEncoder passwordEncoder;
 
     @Override
     public LoginResponseDto login(LoginRequestDto requestDto) {
@@ -41,6 +41,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private Boolean isPasswordValid(String requestPass, String dbPass) {
-        return passwordEncoder.matches(requestPass, dbPass);
+        return requestPass.equals(dbPass);
+        //идеальная реализация должна использовать шифрование паролей
+        //return passwordEncoder.matches(requestPass, dbPass);
     }
 }

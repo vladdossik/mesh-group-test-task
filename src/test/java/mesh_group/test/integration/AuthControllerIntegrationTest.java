@@ -1,46 +1,68 @@
 package mesh_group.test.integration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import mesh_group.test.AbstractInitialization;
 import mesh_group.test.BaseIntegrationTest;
 import mesh_group.test.dto.LoginRequestDto;
 import mesh_group.test.dto.LoginResponseDto;
 import mesh_group.test.model.EmailDataEntity;
 import mesh_group.test.model.PhoneDataEntity;
 import mesh_group.test.model.UserEntity;
+import mesh_group.test.repository.UserRepository;
+import mesh_group.test.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.HashSet;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Testcontainers
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
+class AuthControllerIntegrationTest extends AbstractInitialization {
+    @Container
+    protected static final PostgreSQLContainer<?> postgres =
+            new PostgreSQLContainer<>("postgres:15")
+                    .withDatabaseName("test_db")
+                    .withUsername("postgres")
+                    .withPassword("postgres");
 
-class AuthControllerIntegrationTest extends BaseIntegrationTest {
+    @Autowired
+    protected MockMvc mockMvc;
+
+    @Autowired
+    protected ObjectMapper objectMapper;
+
+    @Autowired
+    protected UserService userService;
+
+    @DynamicPropertySource
+    static void overrideProps(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", postgres::getJdbcUrl);
+        registry.add("spring.datasource.username", postgres::getUsername);
+        registry.add("spring.datasource.password", postgres::getPassword);
+        registry.add("spring.liquibase.default-schema", () -> "public");
+        registry.add("spring.jpa.properties.hibernate.default_schema", () -> "public");
+    }
 
     @Test
     void testLogin() throws Exception {
-        UserEntity user = new UserEntity();
-        user.setName("testuser");
-        user.setPassword("testpass");
-        user.setEmails(new HashSet<>());
-        user.setPhones(new HashSet<>());
-
-        EmailDataEntity emailData = new EmailDataEntity();
-        emailData.setEmail("user@example.com");
-        emailData.setUser(user);
-        user.getEmails().add(emailData);
-
-        PhoneDataEntity phoneData = new PhoneDataEntity();
-        phoneData.setPhone("1234567890");
-        phoneData.setUser(user);
-        user.getPhones().add(phoneData);
-
-        userRepository.save(user);
-
-        LoginRequestDto loginRequest = new LoginRequestDto();
-        loginRequest.setEmailOrPhone("user@example.com");
-        loginRequest.setPassword("testpass");
+        userService.saveUser(anotherUser);
 
         String requestJson = objectMapper.writeValueAsString(loginRequest);
         String responseJson = mockMvc.perform(
@@ -53,7 +75,7 @@ class AuthControllerIntegrationTest extends BaseIntegrationTest {
                 .getContentAsString();
 
         LoginResponseDto loginResponse = objectMapper.readValue(responseJson, LoginResponseDto.class);
-        Assertions.assertNotNull(loginResponse.getToken(), "Токен не должен быть null");
-        Assertions.assertFalse(loginResponse.getToken().isEmpty(), "Токен не должен быть пустым");
+        Assertions.assertNotNull(loginResponse.getToken(), "Token must not be null");
+        Assertions.assertFalse(loginResponse.getToken().isEmpty(), "Token must not be empty");
     }
 }

@@ -1,6 +1,5 @@
 package mesh_group.test.exception;
 
-import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -36,8 +35,8 @@ public class GeneralExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(ConstraintViolationException ex, WebRequest request) {
+    @org.springframework.web.bind.annotation.ExceptionHandler(javax.validation.ConstraintViolationException.class)
+    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(javax.validation.ConstraintViolationException ex, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(LocalDate.now(), ex.getMessage(),
                 request.getDescription(false));
 

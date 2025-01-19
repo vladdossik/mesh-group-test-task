@@ -44,6 +44,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public void saveUser(UserEntity user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
     @CacheEvict(value = "users", key = "#userId")
     public UserResponseDto updateUser(Long userId, UserUpdateDto userDto) {
         log.info("Start updating user with id={}", userId);

@@ -1,12 +1,12 @@
 package mesh_group.test.specification;
 
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.JoinType;
 import mesh_group.test.model.EmailDataEntity;
 import mesh_group.test.model.PhoneDataEntity;
 import mesh_group.test.model.UserEntity;
 import org.springframework.data.jpa.domain.Specification;
 
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import java.time.LocalDate;
 
 

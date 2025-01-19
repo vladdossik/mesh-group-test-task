@@ -58,6 +58,17 @@ public class AccountServiceImpl implements AccountService {
         log.info("Transaction between user with id={} and user with id={} was successful", dto.getFromId(), dto.getToId());
     }
 
+    @Override
+    public List<AccountEntity> findAll() {
+        return accountRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void saveAll(List<AccountEntity> accounts) {
+        accountRepository.saveAll(accounts);
+    }
+
     private AccountEntity findOrThrow(Long id) {
         return accountRepository.findByUserId(id)
                 .orElseThrow(() -> new NotFoundException("Account for user with id=" + id + " was not found"));

@@ -26,6 +26,9 @@ public class TransferServiceImpl implements TransferService {
             accountService.transferMoney(dto);
             log.info("Successfully transferred money for users with ids={}", userIds);
         } catch (Exception e) {
+            log.error("Exception occurred while transfer money", e);
+        }
+        finally {
             userService.unlockUsers(List.of(dto.getFromId(), dto.getToId()));
         }
     }

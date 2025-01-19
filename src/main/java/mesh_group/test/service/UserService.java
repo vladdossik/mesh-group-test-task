@@ -10,6 +10,8 @@ import java.util.List;
 
 
 public interface UserService {
+    void saveUser(UserEntity user);
+
     UserResponseDto updateUser(Long userId, UserUpdateDto userDto);
 
     UserResponseDto getUserById(Long userId);

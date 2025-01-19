@@ -3,7 +3,7 @@ package mesh_group.test.scheduler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mesh_group.test.model.AccountEntity;
-import mesh_group.test.repository.AccountRepository;
+import mesh_group.test.service.AccountService;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ public class BalanceScheduler {
     private static final BigDecimal MULTIPLIER_FOR_TWO_HUNDRED_SEVEN_PERCENT = new BigDecimal("2.07");
     private static final BigDecimal MULTIPLIER_FOR_TEN_PERCENT = new BigDecimal("1.1");
 
-    private final AccountRepository accountRepository;
+    private final AccountService accountService;
 
     @Scheduled(fixedRateString = "${scheduler.balance.fixedRate}")
     @SchedulerLock(name = "increaseBalancesLock")
@@ -27,7 +27,7 @@ public class BalanceScheduler {
         BigDecimal currentBalance;
         BigDecimal maxPossibleBalance;
         BigDecimal newBalance;
-        List<AccountEntity> accounts = accountRepository.findAll();
+        List<AccountEntity> accounts = accountService.findAll();
         for (AccountEntity account : accounts) {
             currentBalance = account.getBalance();
             maxPossibleBalance = account.getInitialBalance().multiply(MULTIPLIER_FOR_TWO_HUNDRED_SEVEN_PERCENT);
@@ -36,8 +36,8 @@ public class BalanceScheduler {
                 account.setBalance(newBalance);
             }
         }
-        accountRepository.saveAll(accounts);
-        log.debug("Succesfully updated balances for {} accounts", accounts.size());
+        accountService.saveAll(accounts);
+        log.debug("Successfully updated balances for {} accounts", accounts.size());
     }
 
     private boolean canIncreaseBalance(BigDecimal newBalance, BigDecimal maxPossibleBalance) {
