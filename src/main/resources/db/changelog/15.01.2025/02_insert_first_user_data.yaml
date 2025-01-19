@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: 15_01_2025_02
+      author: vladdosiik7540@gmail.com
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 100
+              - column:
+                  name: name
+                  value: "Иван Иванов"
+              - column:
+                  name: date_of_birth
+                  valueDate: "1990-01-01"
+              - column:
+                  name: password
+                  value: "\\$2a\\$10\\$KIXeCmjaH8eRQGVKzOqPzOtP9SWsZT/7n3vAtTP5Vv9WRcTp3Dp2y"
+
+        - insert:
+            tableName: account
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 100
+              - column:
+                  name: initial_balance
+                  valueNumeric: 1000.00
+              - column:
+                  name: balance
+                  valueNumeric: 1000.00
+
+        - insert:
+            tableName: email_data
+            columns:
+              - column:
+                  name: email
+                  value: "ivan@example.com"
+              - column:
+                  name: user_id
+                  valueNumeric: 100
+        - insert:
+            tableName: email_data
+            columns:
+              - column:
+                  name: email
+                  value: "ivanov@mail.com"
+              - column:
+                  name: user_id
+                  valueNumeric: 100
+
+        - insert:
+            tableName: phone_data
+            columns:
+              - column:
+                  name: phone
+                  value: "+71234567890"
+              - column:
+                  name: user_id
+                  valueNumeric: 100
+        - insert:
+            tableName: phone_data
+            columns:
+              - column:
+                  name: phone
+                  value: "+79876543210"
+              - column:
+                  name: user_id
+                  valueNumeric: 100

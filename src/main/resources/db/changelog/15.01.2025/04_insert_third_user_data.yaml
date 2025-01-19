@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 15_01_2025_04
+      author: vladdosiik7540@gmail.com
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 102
+              - column:
+                  name: name
+                  value: "Анна Смирнова"
+              - column:
+                  name: date_of_birth
+                  valueDate: "1992-09-20"
+              - column:
+                  name: password
+                  value: "\\$2a\\$10\\$ID1h5X/xV4hFM1t3DlNGC.eBRTEFgWpv0bx2bRe0GNONysxEs7f6q"
+
+        - insert:
+            tableName: account
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 102
+              - column:
+                  name: initial_balance
+                  valueNumeric: 750.00
+              - column:
+                  name: balance
+                  valueNumeric: 750.00
+
+        - insert:
+            tableName: email_data
+            columns:
+              - column:
+                  name: email
+                  value: "anna@example.com"
+              - column:
+                  name: user_id
+                  valueNumeric: 102
+
+        - insert:
+            tableName: phone_data
+            columns:
+              - column:
+                  name: phone
+                  value: "+79998887766"
+              - column:
+                  name: user_id
+                  valueNumeric: 102

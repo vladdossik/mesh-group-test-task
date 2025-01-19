@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 15_01_2025_06
+      author: vladdosiik7540@gmail.com
+      changes:
+        - createIndex:
+            tableName: email_data
+            indexName: email_data_email_unique_idx
+            unique: true
+            columns:
+              - column:
+                  name: email
+        - createIndex:
+            tableName: phone_data
+            indexName: phone_data_phone_unique_idx
+            unique: true
+            columns:
+              - column:
+                  name: phone

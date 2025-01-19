@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 123
+    driver-class-name: org.postgresql.Driver
+
+  cache:
+    type: caffeine
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        default_schema: mesh_group
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    default-schema: mesh_group
+
+cache:
+  expireAfterAccessMs: 600000
+  maximumSize: 1000
+  recordStats: true
+  initialCapacity: 100
+  weakKeys: true
+  weakValues: true
+
+jwt:
+  secret: MySuperPuperSecretKeyForJwtTokenThatIsLongEnoughHehe1234
+  expirationMs: 3600000
+
+scheduler:
+  balance:
+    fixedRate: 30000

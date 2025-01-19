@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: 15_01_2025_03
+      author: vladdosiik7540@gmail.com
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 101
+              - column:
+                  name: name
+                  value: "Пётр Петров"
+              - column:
+                  name: date_of_birth
+                  valueDate: "1985-05-15"
+              - column:
+                  name: password
+                  value: "\\$2a\\$10\\$7zA0D2S8QmTBLZ5yBiihp.tgm1Xk8QWlG5GeVHXjP97d9aogocZ8e"
+
+
+        - insert:
+            tableName: account
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 101
+              - column:
+                  name: initial_balance
+                  valueNumeric: 500.00
+              - column:
+                  name: balance
+                  valueNumeric: 500.00
+
+        - insert:
+            tableName: email_data
+            columns:
+              - column:
+                  name: email
+                  value: "petr@example.com"
+              - column:
+                  name: user_id
+                  valueNumeric: 101
+
+        - insert:
+            tableName: phone_data
+            columns:
+              - column:
+                  name: phone
+                  value: "+71112223344"
+              - column:
+                  name: user_id
+                  valueNumeric: 101

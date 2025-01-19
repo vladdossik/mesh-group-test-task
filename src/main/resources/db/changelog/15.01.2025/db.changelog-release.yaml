@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - include:
+      file: 01_create_tables.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: 02_insert_first_user_data.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: 03_insert_second_user_data.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: 04_insert_third_user_data.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: 05_create_shedlock_table.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: 06_create_email_and_phone_indexes.yaml
+      relativeToChangelogFile: true
